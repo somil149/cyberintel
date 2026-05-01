@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useRef, useEffect } from 'react'
+import { useTheme } from '@/hooks/useTheme'
 
 const GROUPS = [
   {
@@ -95,6 +96,7 @@ function Dropdown({ group, pathname }: { group: typeof GROUPS[0]; pathname: stri
 export default function Nav() {
   const { pathname } = useRouter()
   const [mobileOpen, setMobileOpen] = useState(false)
+  const { theme, toggleTheme } = useTheme()
 
   return (
     <nav className="sticky top-0 z-50 bg-cyber-bg/95 backdrop-blur border-b border-cyber-border">
@@ -119,6 +121,13 @@ export default function Nav() {
 
         {/* Right side */}
         <div className="flex items-center gap-2">
+          <button
+            onClick={toggleTheme}
+            className="px-3 py-1.5 rounded border border-cyber-border text-gray-400 hover:border-cyber-accent hover:text-cyber-accent transition-colors text-xs"
+            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+          >
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
           <Link href="/search"
             className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs transition-colors ${
               pathname === '/search'

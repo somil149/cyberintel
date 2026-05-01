@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import AttackCard from '@/components/AttackCard'
 import { BarChart, LineChart } from '@/components/Charts'
+import { ExportButton } from '@/components/ExportButton'
 import { loadAttacks } from '@/lib/data'
 import type { Attack } from '@/types'
 
@@ -33,9 +34,12 @@ export default function Ransomware() {
 
   return (
     <Layout title="Ransomware Tracker">
-      <div className="mb-6">
-        <h1 className="text-3xl font-bold text-white mb-2">🔒 Ransomware Tracker</h1>
-        <p className="text-gray-400 text-sm">Dedicated intelligence on ransomware attacks</p>
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-3xl font-bold text-white mb-2">🔒 Ransomware Tracker</h1>
+          <p className="text-gray-400 text-sm">Dedicated intelligence on ransomware attacks</p>
+        </div>
+        {!loading && <ExportButton data={attacks} filename="ransomware-attacks" />}
       </div>
 
       {loading ? (

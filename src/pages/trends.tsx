@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import { LineChart, BarChart, DoughnutChart } from '@/components/Charts'
+import { ExportButton } from '@/components/ExportButton'
 import { loadInsights } from '@/lib/data'
 import type { Insights } from '@/types'
 
@@ -28,9 +29,21 @@ export default function Trends() {
 
   return (
     <Layout title="Trends Dashboard">
-      <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-1">Trends Dashboard</h1>
-        <p className="text-gray-400 text-sm">21-year evolution of cybersecurity threats, vulnerabilities, and financial impact (2005–2026).</p>
+      <div className="mb-6 flex items-start justify-between">
+        <div>
+          <h1 className="text-2xl font-bold text-white mb-1">Trends Dashboard</h1>
+          <p className="text-gray-400 text-sm">21-year evolution of cybersecurity threats, vulnerabilities, and financial impact (2005–2026).</p>
+        </div>
+        <ExportButton 
+          data={years.map((y, i) => ({
+            year: y,
+            critical_cves: criticalData[i],
+            high_cves: highData[i],
+            avg_cvss_score: avgScoreData[i],
+            kev_count: kevData[i]
+          }))} 
+          filename="cve-trends" 
+        />
       </div>
 
       <div className="card mb-6">

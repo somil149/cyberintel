@@ -14,6 +14,9 @@ export default function Search() {
   const [cves, setCVEs] = useState<CVE[]>([])
   const [query, setQuery] = useState('')
   const [filter, setFilter] = useState<'all' | 'incidents' | 'cves' | 'actors'>('all')
+  const [yearFilter, setYearFilter] = useState<string>('all')
+  const [severityFilter, setSeverityFilter] = useState<string>('all')
+  const [industryFilter, setIndustryFilter] = useState<string>('all')
 
   useEffect(() => {
     loadAttacks().then(setAttacks)
@@ -27,15 +30,21 @@ export default function Search() {
     const out: Result[] = []
 
     if (filter === 'all' || filter === 'incidents') {
-      attacks.filter(a =>
-        a.name.toLowerCase().includes(q) ||
-        a.description.toLowerCase().includes(q) ||
-        a.actor.toLowerCase().includes(q) ||
-        a.type.toLowerCase().includes(q) ||
-        a.target_industry.toLowerCase().includes(q) ||
-        a.mitre_techniques.some(t => t.toLowerCase().includes(q)) ||
-        String(a.year).includes(q)
-      ).forEach(a => out.push({ kind: 'incident', item: a }))
+      attacks.filter(a => {
+        const matchesQuery = a.name.toLowerCase().includes(q) ||
+          a.description.toLowerCase().includes(q) ||
+          a.actor.toLowerCase().includes(q) ||
+          a.type.toLowerCase().includes(q) ||
+          a.target_industry.toLowerCase().includes(q) ||
+          a.mitre_techniques.some(t => t.toLowerCase().includes(q)) ||
+          String(a.year).includes(q)
+        
+        const matchesYear = yearFilter === 'all' || String(a.year) === yearFilter
+        const matchesSeverity = severityFilter === 'all' || a.severity === severityFilter
+        const matchesIndustry = industryFilter === 'all' || a.target_industry === industryFilter
+        
+        return matchesQuery && matchesYear && matchesSeverity && matchesIndustry
+      }).forEach(a => out.push({ kind: 'incident', item: a }))
     }
 
     if (filter === 'all' || filter === 'cves') {
@@ -58,7 +67,7 @@ export default function Search() {
     }
 
     return out.slice(0, 50)
-  }, [query, filter, attacks, cves])
+  }, [query, filter, attacks, cves, yearFilter, severityFilter, industryFilter])
 
   const counts = useMemo(() => ({
     incidents: results.filter(r => r.kind === 'incident').length,
@@ -105,6 +114,49 @@ export default function Search() {
           </span>
         )}
       </div>
+
+      {/* Advanced filters */}
+      {query && (filter === 'all' || filter === 'incidents') && (
+        <div className="flex flex-wrap gap-3 mb-6 p-4 bg-cyber-surface border border-cyber-border rounded-lg">
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Year:</span>
+            <select value={yearFilter} onChange={e => setYearFilter(e.target.value)}
+              className="bg-cyber-bg border border-cyber-border rounded px-2 py-1 text-xs text-gray-300 focus:outline-none focus:border-cyber-accent">
+              <option value="all">All Years</option>
+              {Array.from(new Set(attacks.map(a => a.year))).sort((a, b) => b - a).map(y => (
+                <option key={y} value={y}>{y}</option>
+              ))}
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Severity:</span>
+            <select value={severityFilter} onChange={e => setSeverityFilter(e.target.value)}
+              className="bg-cyber-bg border border-cyber-border rounded px-2 py-1 text-xs text-gray-300 focus:outline-none focus:border-cyber-accent">
+              <option value="all">All Severities</option>
+              <option value="CRITICAL">Critical</option>
+              <option value="HIGH">High</option>
+              <option value="MEDIUM">Medium</option>
+              <option value="LOW">Low</option>
+            </select>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-xs text-gray-500">Industry:</span>
+            <select value={industryFilter} onChange={e => setIndustryFilter(e.target.value)}
+              className="bg-cyber-bg border border-cyber-border rounded px-2 py-1 text-xs text-gray-300 focus:outline-none focus:border-cyber-accent">
+              <option value="all">All Industries</option>
+              {Array.from(new Set(attacks.map(a => a.target_industry))).sort().map(i => (
+                <option key={i} value={i}>{i}</option>
+              ))}
+            </select>
+          </div>
+          {(yearFilter !== 'all' || severityFilter !== 'all' || industryFilter !== 'all') && (
+            <button onClick={() => { setYearFilter('all'); setSeverityFilter('all'); setIndustryFilter('all') }}
+              className="text-xs text-cyber-accent hover:underline">
+              Clear filters
+            </button>
+          )}
+        </div>
+      )}
 
       {/* Results */}
       {!query ? (
