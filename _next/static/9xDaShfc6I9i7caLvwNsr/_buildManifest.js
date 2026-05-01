@@ -21,7 +21,7 @@ self.__BUILD_MANIFEST = {
     "static/chunks/11l~uizasb7pa.js"
   ],
   "/timeline": [
-    "static/chunks/0zg.5ii4akrvp.js"
+    "static/chunks/182d9i51aoa1..js"
   ],
   "/trends": [
     "static/chunks/0phy4566~x118.js"
