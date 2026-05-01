@@ -23,9 +23,9 @@ export default function Home() {
     ? Object.entries(insights.industry_impact).sort((a, b) => b[1].incidents - a[1].incidents).slice(0, 5)
     : []
 
-  const yearLabels = insights ? Object.keys(insights.yearly_attacks).filter(y => parseInt(y) >= 0010) : []
+  const yearLabels = insights ? Object.keys(insights.yearly_attacks).filter(y => parseInt(y) >= 2010) : []
   const yearData = insights ? yearLabels.map(y => insights.yearly_attacks[y]) : []
-  const financialLabels = insights ? Object.keys(insights.financial_impact_by_year).filter(y => parseInt(y) >= 0010) : []
+  const financialLabels = insights ? Object.keys(insights.financial_impact_by_year).filter(y => parseInt(y) >= 2010) : []
   const financialData = insights ? financialLabels.map(y => insights.financial_impact_by_year[y] / 1e9) : []
 
   return (
