@@ -79,6 +79,55 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Featured Incidents */}
+      {!loading && attacks.length > 0 && (
+        <div className="mb-10">
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-white">🔥 Featured Incidents</h2>
+            <Link href="/incidents" className="text-xs text-cyber-accent hover:underline">
+              View All →
+            </Link>
+          </div>
+          <div className="grid md:grid-cols-3 gap-4">
+            {attacks
+              .filter(a => ['Equifax', 'SolarWinds', 'Colonial Pipeline', 'WannaCry'].some(name => a.name.includes(name)))
+              .slice(0, 3)
+              .map(a => (
+                <Link key={a.id} href={`/incident/${a.id}`}
+                  className="card hover:border-cyber-accent/50 hover:bg-cyber-accent/5 transition-all group">
+                  <div className="flex items-start justify-between gap-2 mb-2">
+                    <span className="text-xs text-gray-500 font-mono">{a.date}</span>
+                    <span className={`badge ${
+                      a.severity === 'CRITICAL' ? 'bg-red-900/40 text-red-400 border-red-800' :
+                      a.severity === 'HIGH' ? 'bg-orange-900/40 text-orange-400 border-orange-800' :
+                      'bg-yellow-900/40 text-yellow-400 border-yellow-800'
+                    }`}>
+                      {a.severity}
+                    </span>
+                  </div>
+                  <h3 className="font-bold text-white text-sm mb-2 group-hover:text-cyber-accent transition-colors">
+                    {a.name}
+                  </h3>
+                  <p className="text-xs text-gray-400 mb-3 line-clamp-2">{a.description}</p>
+                  <div className="flex items-center gap-3 text-xs">
+                    {a.records_affected > 0 && (
+                      <div className="text-red-400">
+                        <span className="text-gray-500">Records:</span> {formatNumber(a.records_affected)}
+                      </div>
+                    )}
+                    {a.financial_impact_usd > 0 && (
+                      <div className="text-orange-400">
+                        <span className="text-gray-500">Impact:</span> {formatUSD(a.financial_impact_usd)}
+                      </div>
+                    )}
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+      )}
+
+
       {/* Key Stats */}
       {loading ? (
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">

@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { Attack } from '@/types'
 import SeverityBadge from './SeverityBadge'
 import RiskMeter from './RiskMeter'
+import { ShareButton } from './ShareButton'
+import { BookmarkButton } from './BookmarkButton'
 import { formatUSD, formatNumber } from '@/lib/data'
 
 export default function AttackCard({ a }: { a: Attack }) {
@@ -27,6 +29,12 @@ export default function AttackCard({ a }: { a: Attack }) {
 
       {open && (
         <div className="mt-4 pt-4 border-t border-cyber-border space-y-3 text-xs">
+          {/* Action buttons */}
+          <div className="flex items-center gap-2 pb-2">
+            <ShareButton title={a.name} />
+            <BookmarkButton id={a.id} size="sm" />
+          </div>
+
           {/* Stats row */}
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
