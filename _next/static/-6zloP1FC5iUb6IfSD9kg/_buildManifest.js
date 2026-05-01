@@ -9,7 +9,7 @@ self.__BUILD_MANIFEST = {
     "static/chunks/0p.pjqcmi3vqo.js"
   ],
   "/incidents": [
-    "static/chunks/0gdww6qmkel_d.js"
+    "static/chunks/0tr_x_yhl--fw.js"
   ],
   "/map": [
     "static/chunks/0361i9x7kgcjy.js"
@@ -18,10 +18,10 @@ self.__BUILD_MANIFEST = {
     "static/chunks/0v8.ian5lplc5.js"
   ],
   "/story": [
-    "static/chunks/09qhxkdrtomj9.js"
+    "static/chunks/00h_4nl5lfi60.js"
   ],
   "/timeline": [
-    "static/chunks/0f8pes7nq99.w.js"
+    "static/chunks/10e641aam1ka4.js"
   ],
   "/trends": [
     "static/chunks/0u0.iacow_t93.js"
