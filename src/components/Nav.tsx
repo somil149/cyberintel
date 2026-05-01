@@ -10,6 +10,7 @@ const GROUPS = [
       { href: '/timeline', label: 'Timeline', desc: '21-year attack history' },
       { href: '/story', label: 'Story Mode', desc: 'Year-by-year narrative' },
       { href: '/bookmarks', label: 'Bookmarks', desc: 'Your saved incidents' },
+      { href: '/about', label: 'About', desc: 'About CyberIntel & creator' },
     ],
   },
   {
