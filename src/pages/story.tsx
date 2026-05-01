@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import { loadStory } from '@/lib/data'
 import type { StoryEntry } from '@/types'
@@ -23,8 +23,8 @@ export default function Story() {
   return (
     <Layout title="Story Mode">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-1">Story Mode: 20 Years of Cyber Evolution</h1>
-        <p className="text-gray-400 text-sm">Year-by-year narrative of how cybersecurity threats evolved from 2005 to 2025.</p>
+        <h1 className="text-2xl font-bold text-white mb-1">Story Mode: 21 Years of Cyber Evolution</h1>
+        <p className="text-gray-400 text-sm">Year-by-year narrative of how cybersecurity threats evolved from 2005 to 2026.</p>
       </div>
 
       {entries.length === 0 ? (

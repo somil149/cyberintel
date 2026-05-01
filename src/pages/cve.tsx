@@ -1,4 +1,4 @@
-import { useEffect, useState, useMemo } from 'react'
+﻿import { useEffect, useState, useMemo } from 'react'
 import Layout from '@/components/Layout'
 import SeverityBadge from '@/components/SeverityBadge'
 import RiskMeter from '@/components/RiskMeter'
@@ -71,7 +71,7 @@ export default function CVEPage() {
       {insights && (
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           <div className="card">
-            <h2 className="section-title">📈 CVSS Score Trend (2005–2024)</h2>
+            <h2 className="section-title">📈 CVSS Score Trend (2005–2026)</h2>
             <LineChart
               labels={trendYears}
               datasets={[{ label: 'Avg CVSS', data: avgScores, color: '#00d4ff', fill: true }]}
@@ -79,7 +79,7 @@ export default function CVEPage() {
             />
           </div>
           <div className="card">
-            <h2 className="section-title">🔴 Critical CVEs per Year</h2>
+            <h2 className="section-title">🔴 Critical CVEs per Year (2005�2026)</h2>
             <BarChart
               labels={trendYears}
               datasets={[{ label: 'Critical CVEs', data: criticalCounts, color: '#ef4444' }]}

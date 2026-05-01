@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import SeverityBadge from '@/components/SeverityBadge'
 import RiskMeter from '@/components/RiskMeter'
@@ -28,8 +28,8 @@ export default function Timeline() {
   return (
     <Layout title="Attack Timeline">
       <div className="mb-6">
-        <h1 className="text-2xl font-bold text-white mb-1">Attack Timeline 2005–2025</h1>
-        <p className="text-gray-400 text-sm">Major cybersecurity incidents across 20 years. Click any event to expand.</p>
+        <h1 className="text-2xl font-bold text-white mb-1">Attack Timeline 2005–2026</h1>
+        <p className="text-gray-400 text-sm">Major cybersecurity incidents across 21 years. Click any event to expand.</p>
       </div>
 
       {attacks.length === 0 && (

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
 import { loadAttacks, SEVERITY_COLOR, formatUSD } from '@/lib/data'
 import type { Attack } from '@/types'
@@ -24,7 +24,7 @@ export default function MapPage() {
     <Layout title="Threat Map">
       <div className="mb-4">
         <h1 className="text-2xl font-bold text-white mb-1">Global Threat Intelligence Map</h1>
-        <p className="text-gray-400 text-sm">Geographic distribution of major cyberattacks 2005–2025. Click markers for details.</p>
+        <p className="text-gray-400 text-sm">Geographic distribution of major cyberattacks 2005–2026. Click markers for details.</p>
       </div>
 
       {/* Filter */}
