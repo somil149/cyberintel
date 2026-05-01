@@ -9,6 +9,9 @@ const NAV = [
   { href: '/incidents', label: 'Incidents', icon: '◎' },
   { href: '/map', label: 'Threat Map', icon: '◈' },
   { href: '/cve', label: 'CVE Intel', icon: '◆' },
+  { href: '/mitre', label: 'ATT&CK', icon: '⬡' },
+  { href: '/actors', label: 'Actors', icon: '◈' },
+  { href: '/scorecard', label: 'Scorecard', icon: '◉' },
   { href: '/rca', label: 'Root Cause', icon: '⚙' },
   { href: '/story', label: 'Story Mode', icon: '◇' },
 ]
