@@ -5,7 +5,7 @@ import { analyzeAttack, aggregateInsights, ROOT_CAUSE_RECOMMENDATIONS, type Atta
 import type { Attack } from '@/types'
 import SeverityBadge from '@/components/SeverityBadge'
 import RiskMeter from '@/components/RiskMeter'
-import DoughnutChart from '@/components/DoughnutChart'
+import { DoughnutChart } from '@/components/Charts'
 
 export default function RCA() {
   const [attacks, setAttacks] = useState<Attack[]>([])

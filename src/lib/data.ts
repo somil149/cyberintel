@@ -1,6 +1,8 @@
 import type { Attack, CVE, StoryEntry, Insights } from '@/types'
 
-const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+const base = process.env.NODE_ENV === 'production'
+  ? (process.env.NEXT_PUBLIC_BASE_PATH || '')
+  : ''
 
 async function fetchJSON<T>(path: string): Promise<T> {
   const res = await fetch(`${base}${path}`)

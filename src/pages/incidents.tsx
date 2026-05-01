@@ -4,7 +4,7 @@ import AttackCard from '@/components/AttackCard'
 import { loadAttacks } from '@/lib/data'
 import type { Attack } from '@/types'
 
-const YEARS = Array.from({ length: 21 }, (_, i) => 2005 + i)
+const YEARS = Array.from({ length: 21 }, (_, i) => 2025 - i)
 const SEVERITIES = ['CRITICAL', 'HIGH', 'MEDIUM', 'LOW']
 
 export default function Incidents() {

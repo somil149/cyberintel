@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import Layout from '@/components/Layout'
-import LineChart from '@/components/LineChart'
-import BarChart from '@/components/BarChart'
-import DoughnutChart from '@/components/DoughnutChart'
+import { LineChart } from '@/components/Charts'
+import { BarChart } from '@/components/Charts'
+import { DoughnutChart } from '@/components/Charts'
 import { loadInsights } from '@/lib/data'
 import type { Insights } from '@/types'
 

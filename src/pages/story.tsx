@@ -16,7 +16,7 @@ export default function Story() {
   const [entries, setEntries] = useState<StoryEntry[]>([])
   const [active, setActive] = useState<number>(0)
 
-  useEffect(() => { loadStory().then(d => { setEntries(d); setActive(d.length - 1) }) }, [])
+  useEffect(() => { loadStory().then(d => { setEntries(d); setActive(0) }) }, [])
 
   const entry = entries[active]
 
@@ -35,7 +35,8 @@ export default function Story() {
           <div className="card p-2 h-fit md:sticky md:top-20">
             <div className="text-xs text-gray-500 uppercase tracking-wider px-2 mb-2">Select Year</div>
             <div className="space-y-0.5 max-h-[70vh] overflow-y-auto">
-              {entries.map((e, i) => {
+              {[...entries].reverse().map((e, ri) => {
+                const i = entries.length - 1 - ri
                 const color = ERA_COLORS[e.era] || '#6b7280'
                 return (
                   <button

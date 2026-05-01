@@ -10,7 +10,7 @@ export default function Layout({ title, children }: Props) {
   return (
     <>
       <Head>
-        <title>{title} — CyberIntel</title>
+        <title>{`${title} — CyberIntel`}</title>
       </Head>
       <Nav />
       <main className="max-w-7xl mx-auto px-4 py-6">{children}</main>

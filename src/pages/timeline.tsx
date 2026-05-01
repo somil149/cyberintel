@@ -23,7 +23,7 @@ export default function Timeline() {
     return acc
   }, {})
 
-  const years = Object.keys(byYear).map(Number).sort()
+  const years = Object.keys(byYear).map(Number).sort((a, b) => b - a)
 
   return (
     <Layout title="Attack Timeline">
@@ -32,97 +32,83 @@ export default function Timeline() {
         <p className="text-gray-400 text-sm">Major cybersecurity incidents across 20 years. Click any event to expand.</p>
       </div>
 
-      <div className="relative">
-        {/* Vertical line */}
-        <div className="absolute left-[7.5rem] md:left-1/2 top-0 bottom-0 w-px bg-cyber-border" />
+      {attacks.length === 0 && (
+        <div className="text-gray-500 text-center py-20">Loading timeline...</div>
+      )}
 
-        <div className="space-y-2">
+      <div className="relative">
+        {/* Vertical spine */}
+        <div className="absolute left-16 md:left-24 top-0 bottom-0 w-px bg-cyber-border" />
+
+        <div className="space-y-1">
           {years.map(year => (
             <div key={year}>
               {/* Year marker */}
-              <div className="relative flex items-center mb-3 mt-6">
-                <div className="w-28 md:w-1/2 text-right pr-6 md:pr-8">
-                  <span className="text-cyber-accent font-bold text-lg">{year}</span>
+              <div className="relative flex items-center mt-8 mb-3">
+                <div className="w-16 md:w-24 text-right pr-4">
+                  <span className="text-cyber-accent font-bold">{year}</span>
                 </div>
-                <div className="absolute left-[7.5rem] md:left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-cyber-accent border-2 border-cyber-bg" />
+                <div className="absolute left-16 md:left-24 -translate-x-1/2 w-3 h-3 rounded-full bg-cyber-accent border-2 border-cyber-bg z-10" />
               </div>
 
-              {/* Events for this year */}
-              {byYear[year].map((a, i) => {
-                const isLeft = i % 2 === 0
-                const isOpen = selected === a.id
-                return (
-                  <div key={a.id} className="relative flex items-start mb-2">
-                    {/* Left side */}
-                    <div className={`w-28 md:w-1/2 ${isLeft ? 'md:pr-8 md:text-right' : 'md:pr-8 md:text-right hidden md:block'}`}>
-                      {isLeft && (
-                        <div
-                          className={`inline-block text-left cursor-pointer border rounded-lg p-3 max-w-xs ${SEVERITY_COLOR[a.severity]} hover:border-opacity-80 transition-all`}
-                          onClick={() => setSelected(isOpen ? null : a.id)}
-                        >
-                          <EventContent a={a} isOpen={isOpen} />
+              {/* Events */}
+              <div className="space-y-2 pl-20 md:pl-28">
+                {byYear[year].map(a => {
+                  const isOpen = selected === a.id
+                  return (
+                    <div
+                      key={a.id}
+                      className={`relative cursor-pointer border rounded-lg p-3 max-w-2xl transition-all ${SEVERITY_COLOR[a.severity]}`}
+                      onClick={() => setSelected(isOpen ? null : a.id)}
+                    >
+                      {/* Connector dot */}
+                      <div className="absolute -left-[1.05rem] top-4 w-2 h-2 rounded-full bg-gray-600 border border-gray-500" />
+
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="flex-1 min-w-0">
+                          <div className="flex items-center gap-2 flex-wrap mb-1">
+                            <SeverityBadge severity={a.severity} />
+                            <span className="text-xs text-gray-500">{a.date}</span>
+                            <span className="text-xs text-gray-600">{a.type}</span>
+                          </div>
+                          <div className="font-bold text-white text-sm">{a.name}</div>
+                          <div className="text-xs text-gray-400 mt-0.5">{a.target_industry} · {a.actor}</div>
+                        </div>
+                        <div className="flex items-center gap-2 shrink-0">
+                          <RiskMeter score={a.risk_score} size="sm" />
+                          <span className="text-gray-600 text-xs">{isOpen ? '▲' : '▼'}</span>
+                        </div>
+                      </div>
+
+                      {isOpen && (
+                        <div className="mt-3 pt-3 border-t border-white/10 space-y-2 text-xs">
+                          <p className="text-gray-300">{a.description}</p>
+                          <div className="bg-yellow-900/20 border border-yellow-900/30 rounded p-2">
+                            <span className="text-yellow-400 font-bold">⚠ Root Cause: </span>
+                            <span className="text-gray-300">{a.root_cause}</span>
+                          </div>
+                          {a.financial_impact_usd > 0 && (
+                            <div><span className="text-orange-400">💰 Impact: </span><span className="text-gray-300">{formatUSD(a.financial_impact_usd)}</span></div>
+                          )}
+                          <div className="bg-cyan-900/10 border border-cyan-900/30 rounded p-2">
+                            <span className="text-cyber-accent font-bold">💡 Lesson: </span>
+                            <span className="text-gray-300">{a.lessons}</span>
+                          </div>
+                          <div className="flex flex-wrap gap-1">
+                            {a.mitre_techniques.map(t => (
+                              <span key={t} className="badge bg-purple-900/40 text-purple-400 border border-purple-800">{t}</span>
+                            ))}
+                          </div>
                         </div>
                       )}
                     </div>
-
-                    {/* Dot */}
-                    <div className="absolute left-[7.5rem] md:left-1/2 -translate-x-1/2 mt-3 w-2 h-2 rounded-full bg-gray-600 border border-gray-500" />
-
-                    {/* Right side */}
-                    <div className={`flex-1 pl-10 md:pl-8 ${isLeft ? 'md:hidden' : ''}`}>
-                      {(!isLeft || window?.innerWidth < 768) && (
-                        <div
-                          className={`inline-block cursor-pointer border rounded-lg p-3 max-w-xs ${SEVERITY_COLOR[a.severity]} hover:border-opacity-80 transition-all`}
-                          onClick={() => setSelected(isOpen ? null : a.id)}
-                        >
-                          <EventContent a={a} isOpen={isOpen} />
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
             </div>
           ))}
         </div>
       </div>
     </Layout>
-  )
-}
-
-function EventContent({ a, isOpen }: { a: Attack; isOpen: boolean }) {
-  return (
-    <div>
-      <div className="flex items-center gap-2 mb-1 flex-wrap">
-        <SeverityBadge severity={a.severity} />
-        <span className="text-xs text-gray-500">{a.date}</span>
-      </div>
-      <div className="font-bold text-white text-sm">{a.name}</div>
-      <div className="text-xs text-gray-400 mt-1">{a.type} · {a.target_industry}</div>
-
-      {isOpen && (
-        <div className="mt-3 pt-3 border-t border-white/10 space-y-2 text-xs">
-          <p className="text-gray-300">{a.description}</p>
-          <div className="flex items-center gap-2">
-            <span className="text-gray-500">Risk:</span>
-            <RiskMeter score={a.risk_score} size="sm" />
-          </div>
-          <div>
-            <span className="text-yellow-500">⚠ Root Cause: </span>
-            <span className="text-gray-300">{a.root_cause}</span>
-          </div>
-          {a.financial_impact_usd > 0 && (
-            <div>
-              <span className="text-orange-400">💰 Impact: </span>
-              <span className="text-gray-300">{formatUSD(a.financial_impact_usd)}</span>
-            </div>
-          )}
-          <div>
-            <span className="text-cyber-accent">💡 </span>
-            <span className="text-gray-300">{a.lessons}</span>
-          </div>
-        </div>
-      )}
-    </div>
   )
 }
