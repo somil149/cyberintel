@@ -10,7 +10,6 @@ const GROUPS = [
       { href: '/timeline', label: 'Timeline', desc: '21-year attack history' },
       { href: '/story', label: 'Story Mode', desc: 'Year-by-year narrative' },
       { href: '/bookmarks', label: 'Bookmarks', desc: 'Your saved incidents' },
-      { href: '/about', label: 'About', desc: 'About CyberIntel & creator' },
     ],
   },
   {
@@ -107,6 +106,14 @@ export default function Nav() {
 
         {/* Desktop dropdowns */}
         <div className="hidden md:flex items-center gap-1">
+          <Link href="/about"
+            className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+              pathname === '/about'
+                ? 'bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30'
+                : 'text-gray-400 hover:text-white'
+            }`}>
+            About
+          </Link>
           {GROUPS.map(g => <Dropdown key={g.label} group={g} pathname={pathname} />)}
         </div>
 
@@ -130,6 +137,12 @@ export default function Nav() {
       {/* Mobile menu — grouped */}
       {mobileOpen && (
         <div className="md:hidden border-t border-cyber-border bg-cyber-surface max-h-[80vh] overflow-y-auto">
+          <Link href="/about" onClick={() => setMobileOpen(false)}
+            className={`flex items-center gap-2 px-4 py-3 border-b border-cyber-border ${
+              pathname === '/about' ? 'text-cyber-accent bg-cyber-accent/5' : 'text-gray-300'
+            }`}>
+            <span className="text-sm font-medium">About</span>
+          </Link>
           {GROUPS.map(g => (
             <div key={g.label}>
               <div className="px-4 py-2 text-[10px] text-gray-500 uppercase tracking-widest font-bold bg-cyber-bg/50">
