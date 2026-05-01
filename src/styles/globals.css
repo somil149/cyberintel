@@ -1,0 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #0a0e1a;
+  --surface: #111827;
+  --border: #1f2937;
+  --accent: #00d4ff;
+}
+
+body {
+  background-color: var(--bg);
+  color: #e5e7eb;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+
+/* Chart canvas */
+canvas { max-width: 100%; }
+
+/* Leaflet overrides */
+.leaflet-container { background: #0a0e1a !important; }
+.leaflet-tile { filter: invert(1) hue-rotate(180deg) brightness(0.7) saturate(0.8); }
+
+@layer components {
+  .card {
+    @apply bg-cyber-surface border border-cyber-border rounded-lg p-4;
+  }
+  .badge {
+    @apply inline-flex items-center px-2 py-0.5 rounded text-xs font-medium;
+  }
+  .btn {
+    @apply px-3 py-1.5 rounded text-sm font-medium transition-colors;
+  }
+  .btn-primary {
+    @apply btn bg-cyber-accent text-cyber-bg hover:bg-cyan-300;
+  }
+  .btn-ghost {
+    @apply btn border border-cyber-border text-gray-400 hover:border-cyber-accent hover:text-cyber-accent;
+  }
+  .stat-card {
+    @apply card flex flex-col gap-1;
+  }
+  .section-title {
+    @apply text-lg font-bold text-white mb-4 flex items-center gap-2;
+  }
+}
