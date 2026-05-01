@@ -9,6 +9,7 @@ const GROUPS = [
       { href: '/', label: 'Overview', desc: 'Global stats & key metrics' },
       { href: '/timeline', label: 'Timeline', desc: '21-year attack history' },
       { href: '/story', label: 'Story Mode', desc: 'Year-by-year narrative' },
+      { href: '/bookmarks', label: 'Bookmarks', desc: 'Your saved incidents' },
     ],
   },
   {
@@ -18,6 +19,7 @@ const GROUPS = [
       { href: '/cve', label: 'CVE Intel', desc: 'Top exploited vulnerabilities' },
       { href: '/mitre', label: 'ATT&CK Heatmap', desc: 'Technique frequency matrix' },
       { href: '/rca', label: 'Root Cause', desc: 'Failure pattern analysis' },
+      { href: '/compare', label: 'Compare', desc: 'Side-by-side comparison' },
     ],
   },
   {
@@ -25,8 +27,12 @@ const GROUPS = [
     items: [
       { href: '/incidents', label: 'Incidents', desc: 'Filter & drill into incidents' },
       { href: '/actors', label: 'Threat Actors', desc: 'Nation-state & criminal profiles' },
+      { href: '/ransomware', label: 'Ransomware', desc: 'Dedicated ransomware tracker' },
       { href: '/scorecard', label: 'Sector Scorecard', desc: 'Industry risk comparison' },
       { href: '/map', label: 'Threat Map', desc: 'Geographic attack visualization' },
+      { href: '/attack-chain', label: 'Attack Chain', desc: 'Kill chain visualizer' },
+      { href: '/relationships', label: 'Relationships', desc: 'Incident connections' },
+      { href: '/lessons', label: 'Lessons', desc: 'Security controls database' },
     ],
   },
 ]
