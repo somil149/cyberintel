@@ -23,17 +23,17 @@ export default function Nav() {
   return (
     <nav className="sticky top-0 z-50 bg-cyber-bg/95 backdrop-blur border-b border-cyber-border">
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-14">
-        <Link href="/" className="flex items-center gap-2 text-cyber-accent font-bold text-sm tracking-widest">
+        <Link href="/" className="flex items-center gap-2 text-cyber-accent font-bold text-sm tracking-widest shrink-0">
           <span className="text-lg">⬡</span> CYBERINTEL
         </Link>
 
         {/* Desktop */}
-        <div className="hidden md:flex items-center gap-1">
+        <div className="hidden md:flex items-center gap-1 overflow-x-auto">
           {NAV.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
-              className={`px-3 py-1.5 rounded text-xs font-medium transition-colors ${
+              className={`px-2.5 py-1.5 rounded text-xs font-medium transition-colors whitespace-nowrap ${
                 pathname === href
                   ? 'bg-cyber-accent/10 text-cyber-accent border border-cyber-accent/30'
                   : 'text-gray-400 hover:text-white'
@@ -44,16 +44,29 @@ export default function Nav() {
           ))}
         </div>
 
-        {/* Mobile toggle */}
-        <button className="md:hidden text-gray-400 hover:text-white" onClick={() => setOpen(!open)}>
-          {open ? '✕' : '☰'}
-        </button>
+        <div className="flex items-center gap-2">
+          {/* Search button */}
+          <Link href="/search"
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded border text-xs transition-colors ${
+              pathname === '/search'
+                ? 'border-cyber-accent text-cyber-accent bg-cyber-accent/10'
+                : 'border-cyber-border text-gray-400 hover:border-cyber-accent hover:text-cyber-accent'
+            }`}>
+            <span>🔍</span>
+            <span className="hidden sm:inline">Search</span>
+          </Link>
+
+          {/* Mobile toggle */}
+          <button className="md:hidden text-gray-400 hover:text-white" onClick={() => setOpen(!open)}>
+            {open ? '✕' : '☰'}
+          </button>
+        </div>
       </div>
 
       {/* Mobile menu */}
       {open && (
         <div className="md:hidden border-t border-cyber-border bg-cyber-surface">
-          {NAV.map(({ href, label, icon }) => (
+          {[...NAV, { href: '/search', label: 'Search', icon: '🔍' }].map(({ href, label, icon }) => (
             <Link
               key={href}
               href={href}
