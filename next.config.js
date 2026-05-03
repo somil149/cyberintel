@@ -3,7 +3,7 @@ const isProd = process.env.NODE_ENV === 'production'
 const basePath = isProd ? (process.env.NEXT_PUBLIC_BASE_PATH || '') : ''
 
 const nextConfig = {
-  output: 'export',
+  output: 'standalone',
   trailingSlash: true,
   images: { unoptimized: true },
   basePath,
